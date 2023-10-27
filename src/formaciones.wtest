@@ -1,0 +1,121 @@
+import formaciones.*
+import vagones.*
+
+describe "Formacion"{
+	
+	const formacion1= new Formacion()
+	const formacion2= new Formacion()
+	const vagon_P1= new Pasajeros(largo=10,ancho=4,estaOrdenado=true,tieneBanio=true)
+	const vagon_P2= new Pasajeros(largo=7,ancho=2,estaOrdenado=false,tieneBanio=false)
+	const vagon_C1= new Carga (cargaMaxIdeal=6800,cantMaderasSueltas=5)
+	const vagon_D1= new Dormitorio(cantCompartimientos=8,cantCamasPorCompartimiento=3)
+	const vagon_C2= new Carga (cargaMaxIdeal=8000,cantMaderasSueltas=1)
+	const vagon_D2= new Dormitorio(cantCompartimientos=15,cantCamasPorCompartimiento=4)
+	
+	method initialize(){
+		formacion1.agregarVagon(vagon_P1)
+		formacion1.agregarVagon(vagon_P2)
+		formacion1.agregarVagon(vagon_C1)
+		formacion1.agregarVagon(vagon_D1)
+		formacion2.agregarVagon(vagon_C2)
+		formacion2.agregarVagon(vagon_D2)
+	}
+	
+	// TEST ANTES DEL MANTENIMIENTO FORMACION 1
+	
+	test "Cantidad de pasajeros antes del mantenimiento F1"{
+		assert.equals(165,formacion1.cantMaxPasajeros())
+	}
+	
+	test "Cantidad de vagones populares antes del mantenimiento F1"{
+		assert.equals(1,formacion1.cantVagonesPopu())
+	}
+	
+	test "No es formación carguera antes del mantenimiento F1"{
+		assert.notThat(formacion1.esFormacionCarguera())
+	}
+	
+	test "La dispersión de pesos antes del mantenimiento es de 4220 F1"{
+		assert.equals(4220,formacion1.dispersionDePeso())
+	}
+	
+	test "La cantidad de banios antes del mantenimiento es 2 F1"{
+		assert.equals(2,formacion1.cantDeBanios())
+	}
+	
+	// TEST DESPUÉS DEL MANTENIMIENTO FORMACION 1
+	
+	test "Cantidad de pasajeros después del mantenimiento F1"{
+		formacion1.hacerMantenimiento()
+		assert.equals(180,formacion1.cantMaxPasajeros())
+	}
+
+	test "Cantidad de vagones populares después del mantenimiento F1"{
+		formacion1.hacerMantenimiento()
+		assert.equals(2,formacion1.cantVagonesPopu())
+	}	
+
+	test "No es formación carguera, después del mantenimiento F1"{
+		formacion1.hacerMantenimiento()
+		assert.notThat(formacion1.esFormacionCarguera())
+	}
+	
+	test "La dispersión de pesos después del mantenimiento es de 3200 F1"{
+		formacion1.hacerMantenimiento()
+		assert.equals(4000,formacion1.dispersionDePeso())
+	}	
+
+	test "La cantidad de banios después del mantenimiento es 2 F1"{
+		formacion1.hacerMantenimiento()
+		assert.equals(2,formacion1.cantDeBanios())
+	}
+
+	// ANTES DEL MANTENIMIENTO FORMACION 2
+	
+	test "Cantidad de pasajeros antes del mantenimiento F2"{
+		assert.equals(60,formacion2.cantMaxPasajeros())
+	}
+	
+	test "Cantidad de vagones populares antes del mantenimiento F2"{
+		assert.equals(1,formacion2.cantVagonesPopu())
+	}
+	
+	test "Es formación carguera antes del mantenimiento F2"{
+		assert.that(formacion2.esFormacionCarguera())
+	}
+	
+	test "La dispersión de pesos antes del mantenimiento es de 900 F2"{
+		assert.equals(900,formacion2.dispersionDePeso())
+	}
+	
+	test "La cantidad de banios antes del mantenimiento es 1 F2"{
+		assert.equals(1,formacion2.cantDeBanios())
+	}
+	
+	// DESPUÉS DEL MANTENIMIENTO FORMACION 2 
+	
+	test "Cantidad de pasajeros después del mantenimiento F2"{
+		formacion2.hacerMantenimiento()
+		assert.equals(60,formacion2.cantMaxPasajeros())
+	}
+	
+	test "Cantidad de vagones populares después del mantenimiento F2"{
+		formacion2.hacerMantenimiento()
+		assert.equals(1,formacion2.cantVagonesPopu())
+	}
+	
+	test "Es formación carguera, después del mantenimiento F2"{
+		formacion2.hacerMantenimiento()
+		assert.that(formacion2.esFormacionCarguera())
+	}
+	
+	test "La dispersión de pesos después del mantenimiento es de 500 F2"{
+		formacion2.hacerMantenimiento()
+		assert.equals(900,formacion2.dispersionDePeso())
+	}
+	
+	test "La cantidad de banios después del mantenimiento es 1 F2"{
+		formacion2.hacerMantenimiento()
+		assert.equals(1,formacion2.cantDeBanios())}
+
+}

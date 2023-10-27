@@ -1,0 +1,38 @@
+import vagones.*
+
+describe "Vagones"{
+
+	const vagon_P1= new Pasajeros(largo=10,ancho=4,estaOrdenado=true,tieneBanio=true)
+	const vagon_P2= new Pasajeros(largo=7,ancho=2,estaOrdenado=false,tieneBanio=false)
+	const vagon_C1= new Carga (cargaMaxIdeal=6800,cantMaderasSueltas=5)	
+	const vagon_D1= new Dormitorio(cantCompartimientos=8,cantCamasPorCompartimiento=3)
+	
+	test "Cantidad de pasajeros"{
+		assert.equals(100,vagon_P1.cantDePasajeros())
+		assert.equals(41,vagon_P2.cantDePasajeros())
+		assert.equals(0,vagon_C1.cantDePasajeros())
+		assert.equals(24,vagon_D1.cantDePasajeros())
+	}
+	
+	test "Peso Maximo"{
+		assert.equals(10300,vagon_P1.pesoMaximo())
+		assert.equals(6080,vagon_P2.pesoMaximo())
+		assert.equals(6300,vagon_C1.pesoMaximo())
+		assert.equals(7120,vagon_D1.pesoMaximo())	
+	}
+	
+	test "Carga Maxima"{
+		assert.equals(300,vagon_P1.cargaMaxima())
+		assert.equals(800,vagon_P2.cargaMaxima())
+		assert.equals(4800,vagon_C1.cargaMaxima())
+		assert.equals(1200,vagon_D1.cargaMaxima())
+	}
+	
+	test "Tiene banios"{	
+		assert.that(vagon_P1.tieneBanio())
+		assert.notThat(vagon_P2.tieneBanio())
+		assert.notThat(vagon_C1.tieneBanio())
+		assert.that(vagon_D1.tieneBanio())
+	}
+	
+}
